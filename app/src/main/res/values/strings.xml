@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Maca</string>
+    <string name="title_berita">Berita Utama</string>
+    <string name="title_populer">Populer</string>
+    <string name="title_sumber">Sumber</string>
+    <string name="gradient_background">Gradient Background</string>
+    <string name="logo">Logo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
