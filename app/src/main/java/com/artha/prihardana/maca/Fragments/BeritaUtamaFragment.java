@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artha.prihardana.maca.Adapters.BeritaAdapter;
+import com.artha.prihardana.maca.Constants;
 import com.artha.prihardana.maca.Models.Berita;
 import com.artha.prihardana.maca.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
@@ -26,19 +28,22 @@ import java.util.List;
 public class BeritaUtamaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = BeritaUtamaFragment.class.getSimpleName();
     private RecyclerView recyclerView;
-    private BeritaAdapter adapter;
+    private BeritaAdapter mAdapter;
     private List<Berita> beritaList;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+//    private String mParam1;
+//    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ShimmerFrameLayout mShimmerViewContainer;
+
+    private static final String URL = Constants.TOP_HEADLINES + "?country=id&apiKey=" + Constants.API_KEY;
 
     public BeritaUtamaFragment() {
         // Required empty public constructor
@@ -78,10 +83,21 @@ public class BeritaUtamaFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_berita_utama, container, false);
         View view = inflater.inflate(R.layout.fragment_berita_utama, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-
-        
+        mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mShimmerViewContainer.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        mShimmerViewContainer.stopShimmerAnimation();
+        super.onPause();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

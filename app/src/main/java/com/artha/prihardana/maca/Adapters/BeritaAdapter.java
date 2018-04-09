@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -25,37 +26,51 @@ import java.util.List;
 
 public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private Context context;
     private List<Berita> beritaList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public TextView author, title, description, url;
+        public ImageView urlToImage;
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
+            title = view.findViewById(R.id.title);
+            author = view.findViewById(R.id.author);
+            description = view.findViewById(R.id.description);
+            urlToImage = view.findViewById(R.id.urlToImage);
         }
     }
 
-    public BeritaAdapter(Context mContext, List<Berita> beritaList) {
-        this.mContext = mContext;
-        this.beritaList = beritaList;
+    public BeritaAdapter(Context context, List<Berita> beritaList) {
+        this.context = context;
+        this.beritaList =  beritaList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.berita_card, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.berita_utama_list_item, parent, false);
+
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Berita berita = beritaList.get(position);
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        final Berita berita = beritaList.get(position);
+        holder.author.setText(berita.getAuthor());
         holder.title.setText(berita.getTitle());
+        holder.description.setText(berita.getDescription());
+        holder.url.setText(berita.getUrl());
+
+        Glide.with(context)
+                .load(berita.getUrlToImage())
+                .into(holder.urlToImage);
     }
 
     @Override
     public int getItemCount() {
         return beritaList.size();
     }
+
 }
