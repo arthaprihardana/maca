@@ -4,17 +4,36 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.artha.prihardana.maca.Adapters.BeritaAdapter;
+import com.artha.prihardana.maca.AppController;
 import com.artha.prihardana.maca.Constants;
 import com.artha.prihardana.maca.Models.Berita;
+import com.artha.prihardana.maca.MyDividerItemDecoration;
 import com.artha.prihardana.maca.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,10 +101,60 @@ public class BeritaUtamaFragment extends Fragment {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_berita_utama, container, false);
         View view = inflater.inflate(R.layout.fragment_berita_utama, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view);
+
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
 
+        recyclerView = view.findViewById(R.id.recycler_view);
+        beritaList = new ArrayList<>();
+        mAdapter = new BeritaAdapter(this, beritaList);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+
+        fetchBerita();
+
         return view;
+    }
+
+    /**
+     * method make volley network call and parses json
+     */
+    private void fetchBerita() {
+        Log.d(TAG, " URL ==> "+ URL);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+
+                if (jsonObject == null) {
+                    Toast.makeText(getContext(), "Couldn't fetch the menu! Pleas try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Gson gson = new Gson();
+                JSONArray jsonArray = jsonObject.optJSONArray("articles");
+                Log.d(TAG, "articles ==>" + jsonArray);
+                List<Berita> beritas = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<Berita>>() {}.getType());
+
+                beritaList.clear();
+                beritaList.addAll(beritas);
+
+                mAdapter.notifyDataSetChanged();
+
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                VolleyLog.d(TAG, "Error: " + volleyError.getMessage());
+                Toast.makeText(getContext(),
+                        volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

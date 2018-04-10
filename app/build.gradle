@@ -37,5 +37,6 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     // volley http library
 //    implementation 'com.android.volley:volley:1.0.0'
+//    implementation 'dev.dworks.libs:volleyplus:0.1.4'
     implementation 'com.google.code.gson:gson:2.6.2'
 }
