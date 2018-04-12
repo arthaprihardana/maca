@@ -56,8 +56,6 @@ public class BeritaUtamaFragment extends Fragment {
     private List<Berita> beritaList;
 
     // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
     private ShimmerFrameLayout mShimmerViewContainer;
@@ -80,8 +78,6 @@ public class BeritaUtamaFragment extends Fragment {
     public static BeritaUtamaFragment newInstance(String param1, String param2) {
         BeritaUtamaFragment fragment = new BeritaUtamaFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,29 +85,25 @@ public class BeritaUtamaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_berita_utama, container, false);
         View view = inflater.inflate(R.layout.fragment_berita_utama, container, false);
 
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         beritaList = new ArrayList<>();
-        mAdapter = new BeritaAdapter(this, beritaList);
+        mAdapter = new BeritaAdapter(getActivity(), beritaList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));
+        recyclerView.setAdapter(mAdapter);
 
         fetchBerita();
 
@@ -122,7 +114,6 @@ public class BeritaUtamaFragment extends Fragment {
      * method make volley network call and parses json
      */
     private void fetchBerita() {
-        Log.d(TAG, " URL ==> "+ URL);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
@@ -134,8 +125,9 @@ public class BeritaUtamaFragment extends Fragment {
 
                 Gson gson = new Gson();
                 JSONArray jsonArray = jsonObject.optJSONArray("articles");
-                Log.d(TAG, "articles ==>" + jsonArray);
                 List<Berita> beritas = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<Berita>>() {}.getType());
+
+                Log.d(TAG, "jsonArray ==> " + jsonArray);
 
                 beritaList.clear();
                 beritaList.addAll(beritas);

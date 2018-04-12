@@ -1,5 +1,9 @@
 package com.artha.prihardana.maca.Models;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -7,7 +11,9 @@ import java.util.Date;
  */
 
 public class Berita {
-//    private Object source;
+    private static final String TAG = Berita.class.getSimpleName();
+
+    private Object source;
     private String author;
     private String title;
     private String description;
@@ -18,7 +24,7 @@ public class Berita {
     public Berita() {}
 
     public Berita(Object source, String author, String title, String description, String url, String urlToImage, Date publishedAt) {
-//        this.source = source;
+        this.source = source;
         this.author = author;
         this.title = title;
         this.description = description;
@@ -27,13 +33,13 @@ public class Berita {
 //        this.publishedAt = publishedAt;
     }
 
-//    public Object getSource() {
-//        return source;
-//    }
-//
-//    public void setSource(Object source) {
-//        this.source = source;
-//    }
+    public Object getSource() {
+        return source;
+    }
+
+    public void setSource(Object source) {
+        this.source = source;
+    }
 
     public String getAuthor() {
         return author;

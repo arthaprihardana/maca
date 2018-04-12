@@ -34,16 +34,16 @@
         android:textColor="@color/chef"
         android:textSize="@dimen/chef" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/timestamp"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/publishedAt"-->
-        <!--android:layout_toRightOf="@id/urlToImage"-->
-        <!--android:maxLines="1"-->
-        <!--android:text="2 min ago"-->
-        <!--android:textColor="@color/timestamp"-->
-        <!--android:textSize="@dimen/timestamp" />-->
+    <TextView
+        android:id="@+id/source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/author"
+        android:layout_toRightOf="@id/urlToImage"
+        android:maxLines="1"
+        android:text="Viva.co.id"
+        android:textColor="@color/timestamp"
+        android:textSize="@dimen/timestamp" />
 
     <TextView
         android:id="@+id/description"
