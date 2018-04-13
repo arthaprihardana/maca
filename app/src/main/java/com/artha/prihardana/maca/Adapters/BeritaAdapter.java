@@ -3,6 +3,7 @@ package com.artha.prihardana.maca.Adapters;
 import android.content.Context;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,11 @@ import android.widget.Toast;
 import com.artha.prihardana.maca.Models.Berita;
 import com.artha.prihardana.maca.R;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -26,11 +32,13 @@ import java.util.List;
 
 public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHolder> {
 
+    private static final String TAG = BeritaAdapter.class.getSimpleName();
+
     private Context context;
     private List<Berita> beritaList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView author, title, description, url;
+        public TextView author, title, description, url, source;
         public ImageView urlToImage;
 
         public MyViewHolder(View view) {
@@ -38,6 +46,7 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHold
             title = view.findViewById(R.id.title);
             author = view.findViewById(R.id.author);
             description = view.findViewById(R.id.description);
+            source = view.findViewById(R.id.source);
             urlToImage = view.findViewById(R.id.urlToImage);
         }
     }
@@ -58,13 +67,14 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Berita berita = beritaList.get(position);
-        holder.author.setText(berita.getAuthor());
+        holder.author.setText(berita.getAuthor() != null ? berita.getAuthor() : "Author" );
         holder.title.setText(berita.getTitle());
         holder.description.setText(berita.getDescription());
-        holder.url.setText(berita.getUrl());
+        holder.source.setText(berita.getSource().get("name").getAsString());
 
         Glide.with(context)
                 .load(berita.getUrlToImage())
+                .error(R.drawable.default_placeholder)
                 .into(holder.urlToImage);
     }
 

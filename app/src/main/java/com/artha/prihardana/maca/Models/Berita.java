@@ -2,9 +2,13 @@ package com.artha.prihardana.maca.Models;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by redbuzz on 14/03/18.
@@ -13,7 +17,7 @@ import java.util.Date;
 public class Berita {
     private static final String TAG = Berita.class.getSimpleName();
 
-    private Object source;
+    private JsonObject source;
     private String author;
     private String title;
     private String description;
@@ -23,7 +27,7 @@ public class Berita {
 
     public Berita() {}
 
-    public Berita(Object source, String author, String title, String description, String url, String urlToImage, Date publishedAt) {
+    public Berita(JsonObject source, String author, String title, String description, String url, String urlToImage, Date publishedAt) {
         this.source = source;
         this.author = author;
         this.title = title;
@@ -33,11 +37,11 @@ public class Berita {
 //        this.publishedAt = publishedAt;
     }
 
-    public Object getSource() {
+    public JsonObject getSource() {
         return source;
     }
 
-    public void setSource(Object source) {
+    public void setSource(JsonObject source) {
         this.source = source;
     }
 

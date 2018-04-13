@@ -22,7 +22,7 @@
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
         android:textColor="@color/item_name"
-        android:textSize="@dimen/name" />
+        android:textSize="@dimen/title" />
 
     <TextView
         android:id="@+id/author"
@@ -32,7 +32,7 @@
         android:layout_toRightOf="@id/urlToImage"
         android:maxLines="1"
         android:textColor="@color/chef"
-        android:textSize="@dimen/chef" />
+        android:textSize="@dimen/author" />
 
     <TextView
         android:id="@+id/source"
@@ -43,7 +43,7 @@
         android:maxLines="1"
         android:text="Viva.co.id"
         android:textColor="@color/timestamp"
-        android:textSize="@dimen/timestamp" />
+        android:textSize="@dimen/source" />
 
     <TextView
         android:id="@+id/description"
@@ -55,15 +55,5 @@
         android:maxLines="3"
         android:textColor="@color/description"
         android:textSize="@dimen/description" />
-
-    <!--<TextView-->
-        <!--android:id="@+id/price"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/description"-->
-        <!--android:layout_marginTop="@dimen/padding_10"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textSize="@dimen/price"-->
-        <!--android:textStyle="bold" />-->
 
 </RelativeLayout>

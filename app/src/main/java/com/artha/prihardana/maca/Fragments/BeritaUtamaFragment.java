@@ -127,7 +127,7 @@ public class BeritaUtamaFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.optJSONArray("articles");
                 List<Berita> beritas = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<Berita>>() {}.getType());
 
-                Log.d(TAG, "jsonArray ==> " + jsonArray);
+//                Log.d(TAG, "jsonArray ==> " + jsonArray);
 
                 beritaList.clear();
                 beritaList.addAll(beritas);
