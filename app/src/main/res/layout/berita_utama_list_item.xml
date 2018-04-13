@@ -13,6 +13,17 @@
         android:layout_marginRight="@dimen/padding_10"
         android:scaleType="centerCrop" />
 
+    <!--<TextView-->
+        <!--android:id="@+id/title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toRightOf="@id/urlToImage"-->
+        <!--android:ellipsize="end"-->
+        <!--android:fontFamily="sans-serif-medium"-->
+        <!--android:maxLines="1"-->
+        <!--android:textColor="@color/item_name"-->
+        <!--android:textSize="@dimen/title" />-->
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -20,25 +31,26 @@
         android:layout_toRightOf="@id/urlToImage"
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textColor="@color/item_name"
         android:textSize="@dimen/title" />
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_toRightOf="@id/urlToImage"
-        android:maxLines="1"
-        android:textColor="@color/chef"
-        android:textSize="@dimen/author" />
+    <!--<TextView-->
+        <!--android:id="@+id/author"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/title"-->
+        <!--android:layout_toRightOf="@id/urlToImage"-->
+        <!--android:maxLines="1"-->
+        <!--android:textColor="@color/chef"-->
+        <!--android:textSize="@dimen/author" />-->
 
     <TextView
         android:id="@+id/source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/author"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/title"
         android:layout_toRightOf="@id/urlToImage"
         android:maxLines="1"
         android:text="Viva.co.id"
@@ -46,14 +58,24 @@
         android:textSize="@dimen/source" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/publishedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/urlToImage"
-        android:layout_marginTop="@dimen/activity_padding_horizontal"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textColor="@color/description"
-        android:textSize="@dimen/description" />
+        android:layout_toRightOf="@id/urlToImage"
+        android:layout_below="@id/source"
+        android:textSize="@dimen/published_at"
+        android:textColor="@color/timestamp"
+        android:text="10 Oktober 2011 12:00:00"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/description"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/publishedAt"-->
+        <!--android:layout_marginTop="@dimen/activity_padding_horizontal"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="3"-->
+        <!--android:textColor="@color/description"-->
+        <!--android:textSize="@dimen/description" />-->
 
 </RelativeLayout>

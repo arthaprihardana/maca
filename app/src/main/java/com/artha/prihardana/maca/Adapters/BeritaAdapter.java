@@ -24,7 +24,12 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by redbuzz on 14/03/18.
@@ -38,16 +43,17 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHold
     private List<Berita> beritaList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView author, title, description, url, source;
+        public TextView author, title, description, url, source, publishedAt;
         public ImageView urlToImage;
 
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
-            author = view.findViewById(R.id.author);
-            description = view.findViewById(R.id.description);
+//            author = view.findViewById(R.id.author);
+//            description = view.findViewById(R.id.description);
             source = view.findViewById(R.id.source);
             urlToImage = view.findViewById(R.id.urlToImage);
+            publishedAt = view.findViewById(R.id.publishedAt);
         }
     }
 
@@ -67,10 +73,18 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Berita berita = beritaList.get(position);
-        holder.author.setText(berita.getAuthor() != null ? berita.getAuthor() : "Author" );
+        SimpleDateFormat sdf;
+        Date date = new Date(berita.getPublishedAt().toString());
+        sdf = new SimpleDateFormat("dd MMMM yyyy hh:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String tanggal = sdf.format(date);
+
+//        holder.author.setText(berita.getAuthor() != null ? berita.getAuthor() : "Author" );
         holder.title.setText(berita.getTitle());
-        holder.description.setText(berita.getDescription());
+//        holder.description.setText(berita.getDescription());
         holder.source.setText(berita.getSource().get("name").getAsString());
+        holder.publishedAt.setText(tanggal);
+        Log.i(TAG, "date ==>" + tanggal);
 
         Glide.with(context)
                 .load(berita.getUrlToImage())

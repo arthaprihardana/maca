@@ -23,7 +23,7 @@ public class Berita {
     private String description;
     private String url;
     private String urlToImage;
-//    private Date publishedAt;
+    private Date publishedAt;
 
     public Berita() {}
 
@@ -34,7 +34,7 @@ public class Berita {
         this.description = description;
         this.url = url;
         this.urlToImage = urlToImage;
-//        this.publishedAt = publishedAt;
+        this.publishedAt = publishedAt;
     }
 
     public JsonObject getSource() {
@@ -85,11 +85,11 @@ public class Berita {
         this.urlToImage = urlToImage;
     }
 
-//    public Date getPublishedAt() {
-//        return publishedAt;
-//    }
-//
-//    public void setPublishedAt(Date publishedAt) {
-//        this.publishedAt = publishedAt;
-//    }
+    public Date getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
+    }
 }

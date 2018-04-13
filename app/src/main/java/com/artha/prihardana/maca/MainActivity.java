@@ -8,10 +8,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.artha.prihardana.maca.Fragments.BeritaUtamaFragment;
-import com.artha.prihardana.maca.Fragments.PopulerFragment;
+import com.artha.prihardana.maca.Fragments.KategoriFragment;
 import com.artha.prihardana.maca.Fragments.SumberFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new BeritaUtamaFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_populer:
-                    toolbar.setTitle(R.string.title_populer);
-                    fragment = new PopulerFragment();
+                case R.id.navigation_kategori:
+                    toolbar.setTitle(R.string.title_kategori);
+                    fragment = new KategoriFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_sumber:

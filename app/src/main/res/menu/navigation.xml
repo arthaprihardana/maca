@@ -7,9 +7,9 @@
         android:title="@string/title_berita" />
 
     <item
-        android:id="@+id/navigation_populer"
+        android:id="@+id/navigation_kategori"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_populer" />
+        android:title="@string/title_kategori" />
 
     <item
         android:id="@+id/navigation_sumber"

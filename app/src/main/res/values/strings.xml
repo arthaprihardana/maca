@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Maca</string>
     <string name="title_berita">Berita Utama</string>
-    <string name="title_populer">Populer</string>
+    <string name="title_kategori">Kategori</string>
     <string name="title_sumber">Sumber</string>
     <string name="gradient_background">Gradient Background</string>
     <string name="logo">Logo</string>
