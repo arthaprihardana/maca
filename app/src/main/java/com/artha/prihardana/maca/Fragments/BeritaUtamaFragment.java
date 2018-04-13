@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ public class BeritaUtamaFragment extends Fragment {
 //    private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = BeritaUtamaFragment.class.getSimpleName();
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private BeritaAdapter mAdapter;
     private List<Berita> beritaList;
@@ -94,10 +96,18 @@ public class BeritaUtamaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_berita_utama, container, false);
 
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         beritaList = new ArrayList<>();
         mAdapter = new BeritaAdapter(getActivity(), beritaList);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchBerita();
+            }
+        });
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -127,15 +137,18 @@ public class BeritaUtamaFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.optJSONArray("articles");
                 List<Berita> beritas = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<Berita>>() {}.getType());
 
-//                Log.d(TAG, "jsonArray ==> " + jsonArray);
+                Log.d(TAG, "jsonArray ==> " + jsonArray);
 
                 beritaList.clear();
                 beritaList.addAll(beritas);
 
                 mAdapter.notifyDataSetChanged();
 
+                swipeRefreshLayout.setRefreshing(false);
+
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -143,6 +156,8 @@ public class BeritaUtamaFragment extends Fragment {
                 VolleyLog.d(TAG, "Error: " + volleyError.getMessage());
                 Toast.makeText(getContext(),
                         volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
